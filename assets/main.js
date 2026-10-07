@@ -1,6 +1,15 @@
 (()=>{const h=document.querySelector('.hdr'),n=document.querySelector('.nav'),t=document.querySelector('.menu-tg');
-const s=()=>h.classList.toggle('solid',scrollY>40||!document.querySelector('.hero'));s();addEventListener('scroll',s,{passive:true});
+const s=()=>h.classList.toggle('solid',scrollY>30||!document.querySelector('.hero'));s();addEventListener('scroll',s,{passive:true});
 t&&t.addEventListener('click',()=>{const o=n.classList.toggle('open');t.setAttribute('aria-expanded',o);document.body.style.overflow=o?'hidden':''});
 n&&n.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{n.classList.remove('open');document.body.style.overflow=''}));
-const io=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}}),{threshold:.12});
-document.querySelectorAll('.rv').forEach(el=>io.observe(el));})();
+const io=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}}),{threshold:.1});
+document.querySelectorAll('.rv:not(.in)').forEach(el=>io.observe(el));
+document.querySelectorAll('[data-car]').forEach(c=>{const tr=c.querySelector('.car-track'),sl=[...tr.children],dw=c.querySelector('.dots');let i=0,tm;
+const ds=sl.map((_,k)=>{const b=document.createElement('button');b.type='button';b.setAttribute('aria-label','Foto '+(k+1));b.onclick=()=>{go(k);stop()};dw.appendChild(b);return b});
+const mark=k=>{i=k;ds.forEach((d,j)=>d.setAttribute('aria-current',j===k))};
+const go=k=>{k=(k+sl.length)%sl.length;tr.scrollTo({left:sl[k].offsetLeft-tr.offsetLeft-(tr.clientWidth-sl[k].clientWidth)/2,behavior:'smooth'})};
+const ob=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)mark(sl.indexOf(x.target))}),{root:tr,threshold:.6});sl.forEach(x=>ob.observe(x));mark(0);
+const play=()=>{if(matchMedia('(prefers-reduced-motion:reduce)').matches)return;tm=setInterval(()=>go(i+1),4500)},stop=()=>clearInterval(tm);
+['touchstart','pointerdown','wheel'].forEach(ev=>tr.addEventListener(ev,stop,{passive:true}));
+c.querySelector('[data-prev]').onclick=()=>{stop();go(i-1)};c.querySelector('[data-next]').onclick=()=>{stop();go(i+1)};play()});
+const links=[...document.querySelectorAll('.mnav a')];if(links.length){const so=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){links.forEach(l=>l.classList.toggle('on',l.hash==='#'+x.target.id));const a=links.find(l=>l.classList.contains('on'));a&&a.scrollIntoView({block:'nearest',inline:'center'})}}),{rootMargin:'-45% 0px -50% 0px'});document.querySelectorAll('.msec').forEach(x=>so.observe(x))}})();

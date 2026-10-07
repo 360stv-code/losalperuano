@@ -186,3 +186,14 @@ section{padding:clamp(4rem,10vw,7.5rem) 0}
 .amb .frame:nth-child(2){margin-top:4rem}
 .amb .frame::before{inset:10px -10px -10px 10px}
 @media (max-width:900px){.amb{gap:.9rem;margin-top:.5rem}.amb .frame:nth-child(2){margin-top:2.5rem}.amb .frame::before{inset:6px -6px -6px 6px}}
+.ig{display:grid;place-items:center;width:44px;height:44px;border:1px solid var(--line);border-radius:50%;margin-left:auto;margin-right:.8rem;transition:border-color .3s,background .3s}
+.ig svg,.ig-foot svg,.ig-nav svg{fill:var(--ouro)}
+.ig svg{width:20px;height:20px}
+.ig:hover{border-color:var(--ouro);background:rgba(212,160,58,.1)}
+.ig-nav{display:none!important}
+.ig-foot{display:inline-flex;align-items:center;gap:.7rem;margin-top:.6rem;text-decoration:none;color:var(--ouro-2)}
+.ig-foot svg{width:22px;height:22px;padding:9px;box-sizing:content-box;border:1px solid var(--line);border-radius:50%;transition:background .3s}
+.ig-foot:hover svg{background:rgba(212,160,58,.12)}
+.ig-foot span{font:500 .78rem var(--sans);letter-spacing:.16em}
+@media (max-width:900px){.ig{width:40px;height:40px;margin-right:.3rem}.ig-nav{display:inline-flex!important;align-items:center;gap:.6rem;font:500 1rem var(--sans)!important;letter-spacing:.12em!important;color:var(--ouro);margin-top:1rem}.ig-nav svg{width:22px;height:22px}}
+@media (min-width:901px){.nav{margin-inline:auto}.ig{margin-left:0}}
